@@ -58,8 +58,28 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="max-w-md mx-auto px-4 mt-6 space-y-4 text-center">
+    <main class="max-w-md mx-auto px-4 mt-4 space-y-4 text-center">
         
+        <!-- FITUR BARU: GLOBAL MACRO METRICS -->
+        <div class="grid grid-cols-4 gap-2 text-center text-xs">
+            <div class="bg-[#111827] border border-gray-800 p-2 rounded-xl flex flex-col justify-center">
+                <div class="text-[9px] text-gray-500 uppercase font-semibold">Global MCap</div>
+                <div id="macro-mcap" class="font-bold text-blue-400 text-xs mt-0.5">$2.45T</div>
+            </div>
+            <div class="bg-[#111827] border border-gray-800 p-2 rounded-xl flex flex-col justify-center">
+                <div class="text-[9px] text-gray-500 uppercase font-semibold">BTC Dom</div>
+                <div id="macro-btcdom" class="font-bold text-orange-400 text-xs mt-0.5">53.4%</div>
+            </div>
+            <div class="bg-[#111827] border border-gray-800 p-2 rounded-xl flex flex-col justify-center">
+                <div class="text-[9px] text-gray-500 uppercase font-semibold">F&G Index</div>
+                <div id="macro-fgi" class="font-bold text-emerald-400 text-xs mt-0.5">72 (Greed)</div>
+            </div>
+            <div class="bg-[#111827] border border-gray-800 p-2 rounded-xl flex flex-col justify-center">
+                <div class="text-[9px] text-gray-500 uppercase font-semibold">USDT/IDR</div>
+                <div id="macro-usdt" class="font-bold text-white text-xs mt-0.5">Loading..</div>
+            </div>
+        </div>
+
         <!-- LIVE PRICE TICKER GRID -->
         <div class="grid grid-cols-3 gap-2 text-center text-xs">
             <div class="bg-[#111827] border border-gray-800 p-2.5 rounded-xl text-left">
@@ -194,7 +214,7 @@
                 </div>
             </section>
 
-            <!-- 3. AI REASONING & ALASAN DETAIL (FITUR BARU) -->
+            <!-- 3. AI REASONING & ALASAN DETAIL -->
             <section class="bg-[#111827] border border-gray-800 rounded-2xl p-4 text-left space-y-2">
                 <div class="text-sm font-bold text-gray-300 flex items-center gap-2">
                     <i class="fas fa-brain text-purple-400"></i> AI Analyst Reasoning
@@ -217,7 +237,7 @@
             <div id="liq-container" class="space-y-1.5 max-h-28 overflow-y-auto pr-1 text-xs font-mono"><div class="text-gray-600 text-center py-2">Menunggu likuidasi pasar...</div></div>
         </section>
 
-        <!-- LIVE GLOBAL NEWS SECTIONS (FITUR BARU) -->
+        <!-- LIVE GLOBAL NEWS SECTIONS -->
         <section class="bg-[#111827] border border-gray-800 rounded-2xl p-4 text-left space-y-3">
             <div class="flex items-center justify-between border-b border-gray-800 pb-2">
                 <div class="text-sm font-bold text-gray-300 flex items-center gap-2">
@@ -230,7 +250,7 @@
             </div>
         </section>
 
-        <!-- WEBSITE & DATA SOURCE SYNC STATUS (FITUR BARU - PALING BAWAH) -->
+        <!-- WEBSITE & DATA SOURCE SYNC STATUS -->
         <section class="bg-[#111827] border border-gray-800 rounded-2xl p-4 text-left space-y-3">
             <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Website & Data Source Sync Status</div>
             <div class="grid grid-cols-2 gap-2 text-[11px]">
@@ -281,7 +301,8 @@
         const livePrices = {};
         const previousPrices = {};
         
-        const wsUrl = "wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/solusdt@ticker/!miniTicker@arr";
+        // Menambahkan usdtidrt@ticker ke WebSocket agar USDT/IDR juga live
+        const wsUrl = "wss://stream.binance.com:9443/ws/btcusdt@ticker/ethusdt@ticker/solusdt@ticker/usdtidrt@ticker/!miniTicker@arr";
         const futuresWsUrl = "wss://fstream.binance.com/stream?streams=!forceOrder@arr/!miniTicker@arr";
 
         let mainWs = new WebSocket(wsUrl);
@@ -290,6 +311,13 @@
         mainWs.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if(data.s) {
+                // Khusus untuk harga USDT/IDRT
+                if (data.s === 'USDTIDRT') {
+                    const usdtPrice = parseFloat(data.c);
+                    document.getElementById('macro-usdt').innerText = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(usdtPrice);
+                    return; // Skip the rest for IDRT
+                }
+
                 const sym = data.s.replace('USDT', '').toLowerCase();
                 const curPrice = parseFloat(data.c);
                 livePrices[sym] = curPrice;
@@ -343,6 +371,25 @@
             if(container.innerText.includes("Menghubungkan") || container.innerText.includes("Menunggu")) container.innerHTML = "";
             container.insertAdjacentHTML('afterbegin', htmlContent);
             if (container.children.length > 3) container.removeChild(container.lastChild);
+        }
+
+        // Ambil Data Macro Global (Mock untuk animasi detak)
+        function fetchGlobalMacro() {
+            // Simulasi F&G Index agar bergerak realistis
+            setInterval(() => {
+                const fgi = Math.floor(Math.random() * (75 - 70 + 1)) + 70;
+                document.getElementById('macro-fgi').innerText = `${fgi} (Greed)`;
+            }, 10000);
+
+            // Fetch Data USDT Awal sebelum WebSocket connect
+            fetch('https://api.binance.com/api/v3/ticker/price?symbol=USDTIDRT')
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.price) {
+                        const usdtPrice = parseFloat(data.price);
+                        document.getElementById('macro-usdt').innerText = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(usdtPrice);
+                    }
+                }).catch(err => console.log('Gagal load USDT API'));
         }
 
         // Live News Feed Simulasi Data
@@ -491,7 +538,7 @@
             document.getElementById('se-card-rr').innerText = rrRatio;
             document.getElementById('se-card-prob').innerText = `${probability}%`;
 
-            // 3. GENERATE ALASAN TRADING AI REASONING (FITUR BARU)
+            // 3. GENERATE ALASAN TRADING AI REASONING
             const reasoningTextEl = document.getElementById('ai-reasoning-output-text');
             if (isBearish) {
                 reasoningTextEl.innerHTML = `
@@ -510,8 +557,9 @@
             updateSyncStatus();
         }
 
-        // Jalankan sinkronisasi pertama kali saat dimuat
+        // Jalankan sinkronisasi pertama kali saat web dimuat
         window.onload = function() {
+            fetchGlobalMacro();
             mockNewsFeed(false);
             updateSyncStatus();
         };
