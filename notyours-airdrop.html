@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Yours Airdrop • Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .airdrop-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .airdrop-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .status-badge { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; }
+        .status-completed { background-color: #166534; color: #86efac; }
+        .status-progress { background-color: #854d0e; color: #fde047; }
+        .status-pending { background-color: #3f3f46; color: #a1a1aa; }
+        .section-header { font-size: 1.75rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; }
+        .modal { animation: modalPop 0.2s ease forwards; }
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .filter-btn.active { background-color: #6366f1; color: white; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-x-3">
+                    <div class="flex items-center gap-x-2.5">
+                        <div class="w-9 h-9 bg-indigo-600 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <span class="font-display text-2xl font-semibold tracking-tighter">Not Yours Airdrop</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-x-3">
+                    <button onclick="exportData()" class="px-4 py-2 text-sm font-medium bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl transition-colors">
+                        <i class="fa-solid fa-download mr-2"></i> Export
+                    </button>
+                    <label class="px-4 py-2 text-sm font-medium bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-2xl cursor-pointer">
+                        <i class="fa-solid fa-upload mr-2"></i> Import
+                        <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)">
+                    </label>
+                    <button onclick="clearAllData()" class="px-4 py-2 text-sm font-medium text-red-400 hover:bg-red-950 border border-zinc-700 rounded-2xl">
+                        <i class="fa-solid fa-trash mr-2"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 pt-8 pb-12">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-8">
+            <div>
+                <h1 class="section-header tracking-tighter">Not Yours Airdrop</h1>
+                <p class="text-zinc-400 mt-1.5">Track semua airdrop crypto yang sudah kamu kerjakan</p>
+            </div>
+            <button onclick="openAddModal()" class="flex items-center justify-center gap-x-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 h-12 rounded-3xl shadow-lg text-sm">
+                <i class="fa-solid fa-plus"></i>
+                <span>Tambah Airdrop Baru</span>
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="stats-container"></div>
+
+        <!-- Controls -->
+        <div class="flex flex-col lg:flex-row gap-4 mb-6">
+            <div class="relative w-full lg:w-80">
+                <i class="fa-solid fa-search absolute left-4 top-3.5 text-zinc-500"></i>
+                <input type="text" id="search-input" class="w-full bg-zinc-900 border border-zinc-700 focus:border-indigo-500 pl-11 pr-4 py-3 rounded-3xl text-sm outline-none" placeholder="Cari project, wallet, email...">
+            </div>
+            <div class="flex flex-wrap gap-2" id="filter-buttons">
+                <button onclick="setFilter('all')" id="filter-all" class="filter-btn active px-4 py-2 text-sm font-medium bg-zinc-900 border border-zinc-700 rounded-3xl">Semua</button>
+                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-4 py-2 text-sm font-medium bg-zinc-900 border border-zinc-700 rounded-3xl"><i class="fa-solid fa-check mr-1 text-emerald-400"></i>Selesai</button>
+                <button onclick="setFilter('in_progress')" id="filter-progress" class="filter-btn px-4 py-2 text-sm font-medium bg-zinc-900 border border-zinc-700 rounded-3xl"><i class="fa-solid fa-spinner mr-1 text-amber-400"></i>Dalam Proses</button>
+                <button onclick="setFilter('pending')" id="filter-pending" class="filter-btn px-4 py-2 text-sm font-medium bg-zinc-900 border border-zinc-700 rounded-3xl"><i class="fa-solid fa-clock mr-1 text-zinc-400"></i>Belum Dimulai</button>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div id="airdrops-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+        <div id="empty-state" class="hidden flex flex-col items-center justify-center py-16 text-center">
+            <div class="w-20 h-20 bg-zinc-900 rounded-3xl flex items-center justify-center mb-6"><i class="fa-solid fa-rocket text-4xl text-zinc-600"></i></div>
+            <h3 class="text-xl font-semibold">Belum ada airdrop</h3>
+            <p class="text-zinc-400 mt-2">Mulai tambahkan airdrop yang sudah kamu kerjakan.</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" onclick="if (event.target.id === 'modal') closeModal()" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-zinc-700 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-zinc-800">
+                <h3 id="modal-title" class="font-semibold text-xl"></h3>
+                <button onclick="closeModal()" class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+            <div id="modal-content" class="p-6"></div>
+        </div>
+    </div>
+
+    <footer class="text-center text-xs text-zinc-500 py-6 border-t border-zinc-800">Data tersimpan otomatis di browser kamu • Not Yours Airdrop</footer>
+
+    <script>
+        let airdrops = [];
+        let currentFilter = 'all';
+        let currentSearch = '';
+        let currentEditId = null;
+
+        function getSampleData() {
+            return [
+                {
+                    id: Date.now(),
+                    name: "Initia",
+                    chain: "Testnet",
+                    status: "completed",
+                    completed_date: "2024-12-23",
+                    end_date: "",
+                    wallet: "0x742d...a3f2",
+                    email: "kamu@email.com",
+                    social: "https://x.com/initia",
+                    tasks: "Quest & farming point",
+                    reward: "Token + WL",
+                    notes: "Sudah complete",
+                    created_at: "2024-12-20"
+                },
+                {
+                    id: Date.now() + 1,
+                    name: "Monad Testnet",
+                    chain: "Monad",
+                    status: "in_progress",
+                    completed_date: "",
+                    end_date: "2025-03-15",
+                    wallet: "0x123...abc",
+                    email: "",
+                    social: "https://x.com/monad_xyz",
+                    tasks: "Deploy contract & swap",
+                    reward: "MON tokens",
+                    notes: "Sedang aktif",
+                    created_at: "2025-01-10"
+                }
+            ];
+        }
+
+        function loadAirdrops() {
+            const saved = localStorage.getItem('notyours_airdrops');
+            if (saved) {
+                airdrops = JSON.parse(saved);
+            } else {
+                airdrops = getSampleData();
+                saveAirdrops();
+            }
+        }
+
+        function saveAirdrops() {
+            localStorage.setItem('notyours_airdrops', JSON.stringify(airdrops));
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function calculateStats() {
+            const total = airdrops.length;
+            const completed = airdrops.filter(a => a.status === 'completed').length;
+            const inProgress = airdrops.filter(a => a.status === 'in_progress').length;
+            const pending = airdrops.filter(a => a.status === 'pending').length;
+            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+            return { total, completed, inProgress, pending, rate };
+        }
+
+        function renderStats() {
+            const stats = calculateStats();
+            document.getElementById('stats-container').innerHTML = `
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-5">
+                    <div class="flex justify-between"><div><p class="text-xs text-zinc-500">Total</p><p class="text-4xl font-semibold">${stats.total}</p></div><i class="fa-solid fa-list text-2xl text-zinc-400"></i></div>
+                </div>
+                <div class="bg-zinc-900 border border-emerald-900 rounded-3xl p-5">
+                    <div class="flex justify-between"><div><p class="text-xs text-emerald-400">Selesai</p><p class="text-4xl font-semibold text-emerald-400">${stats.completed}</p></div><i class="fa-solid fa-check-double text-2xl text-emerald-400"></i></div>
+                </div>
+                <div class="bg-zinc-900 border border-amber-900 rounded-3xl p-5">
+                    <div class="flex justify-between"><div><p class="text-xs text-amber-400">Dalam Proses</p><p class="text-4xl font-semibold text-amber-400">${stats.inProgress}</p></div><i class="fa-solid fa-spinner text-2xl text-amber-400"></i></div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-5">
+                    <p class="text-xs text-zinc-500">Completion Rate</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <div class="flex-1 h-2.5 bg-zinc-800 rounded-full"><div class="h-2.5 bg-emerald-500 rounded-full" style="width:${stats.rate}%"></div></div>
+                        <span class="font-mono text-sm">${stats.rate}%</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createAirdropCard(airdrop) {
+            const statusClass = airdrop.status === 'completed' ? 'status-completed' : airdrop.status === 'in_progress' ? 'status-progress' : 'status-pending';
+            const statusText = airdrop.status === 'completed' ? 'Selesai' : airdrop.status === 'in_progress' ? 'Dalam Proses' : 'Belum Dimulai';
+            
+            let extra = '';
+            if (airdrop.wallet) extra += `<div class="text-xs text-zinc-400 mt-1"><i class="fa-solid fa-wallet mr-1"></i> ${airdrop.wallet}</div>`;
+            if (airdrop.email) extra += `<div class="text-xs text-zinc-400"><i class="fa-solid fa-envelope mr-1"></i> ${airdrop.email}</div>`;
+            if (airdrop.end_date) extra += `<div class="text-xs text-amber-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i> End: ${formatDate(airdrop.end_date)}</div>`;
+
+            return `
+                <div onclick="openDetailModal(${airdrop.id})" class="airdrop-card bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-3xl p-5 cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-lg">${airdrop.name}</h3>
+                            <span class="text-xs px-2.5 py-0.5 bg-zinc-800 rounded-full">${airdrop.chain}</span>
+                        </div>
+                        <span class="status-badge ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="mt-4 text-sm text-zinc-300 line-clamp-2">${airdrop.tasks || 'Belum ada tugas'}</div>
+                    ${extra}
+                    <div class="flex justify-end gap-2 mt-5 pt-4 border-t border-zinc-800 text-xs">
+                        <button onclick="event.stopImmediatePropagation(); openEditModal(${airdrop.id})" class="px-3 py-1 hover:bg-zinc-800 rounded-2xl">Edit</button>
+                        <button onclick="event.stopImmediatePropagation(); deleteAirdrop(${airdrop.id})" class="px-3 py-1 text-red-400 hover:bg-red-950 rounded-2xl">Hapus</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAirdrops() {
+            const grid = document.getElementById('airdrops-grid');
+            const empty = document.getElementById('empty-state');
+            let filtered = airdrops;
+
+            if (currentFilter !== 'all') filtered = filtered.filter(a => a.status === currentFilter);
+            if (currentSearch) {
+                const term = currentSearch.toLowerCase();
+                filtered = filtered.filter(a => 
+                    (a.name && a.name.toLowerCase().includes(term)) ||
+                    (a.chain && a.chain.toLowerCase().includes(term)) ||
+                    (a.wallet && a.wallet.toLowerCase().includes(term)) ||
+                    (a.email && a.email.toLowerCase().includes(term)) ||
+                    (a.tasks && a.tasks.toLowerCase().includes(term))
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'flex';
+            } else {
+                empty.style.display = 'none';
+                grid.innerHTML = filtered.map(createAirdropCard).join('');
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('#filter-buttons button').forEach(btn => btn.classList.remove('active', 'bg-indigo-600'));
+            document.getElementById('filter-' + (filter === 'all' ? 'all' : filter)).classList.add('active', 'bg-indigo-600');
+            renderAirdrops();
+        }
+
+        function setupSearch() {
+            document.getElementById('search-input').addEventListener('input', e => {
+                currentSearch = e.target.value.trim();
+                renderAirdrops();
+            });
+        }
+
+        function openModal() { document.getElementById('modal').classList.remove('hidden'); document.getElementById('modal').classList.add('flex'); }
+        function closeModal() { document.getElementById('modal').classList.remove('flex'); document.getElementById('modal').classList.add('hidden'); currentEditId = null; }
+
+        function showFormModal(airdrop = null) {
+            const isEdit = !!airdrop;
+            document.getElementById('modal-title').textContent = isEdit ? 'Edit Airdrop' : 'Tambah Airdrop Baru';
+            
+            document.getElementById('modal-content').innerHTML = `
+                <form id="airdrop-form" onsubmit="handleFormSubmit(event)">
+                    <div class="space-y-4">
+                        <div><label class="text-xs text-zinc-400">NAMA PROJECT</label><input type="text" name="name" value="${airdrop?.name || ''}" required class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="text-xs text-zinc-400">CHAIN</label><input type="text" name="chain" value="${airdrop?.chain || ''}" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                            <div><label class="text-xs text-zinc-400">STATUS</label>
+                                <select name="status" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm">
+                                    <option value="completed" ${airdrop?.status === 'completed' ? 'selected' : ''}>Selesai</option>
+                                    <option value="in_progress" ${airdrop?.status === 'in_progress' ? 'selected' : ''}>Dalam Proses</option>
+                                    <option value="pending" ${airdrop?.status === 'pending' ? 'selected' : ''}>Belum Dimulai</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="text-xs text-zinc-400">TANGGAL MULAI</label><input type="date" name="completed_date" value="${airdrop?.completed_date || ''}" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                            <div><label class="text-xs text-zinc-400">END DATE</label><input type="date" name="end_date" value="${airdrop?.end_date || ''}" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="text-xs text-zinc-400">WALLET</label><input type="text" name="wallet" value="${airdrop?.wallet || ''}" placeholder="0x..." class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                            <div><label class="text-xs text-zinc-400">EMAIL</label><input type="email" name="email" value="${airdrop?.email || ''}" placeholder="email@domain.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                        </div>
+
+                        <div><label class="text-xs text-zinc-400">SOCIAL MEDIA LINK</label><input type="url" name="social" value="${airdrop?.social || ''}" placeholder="https://x.com/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                        
+                        <div><label class="text-xs text-zinc-400">TUGAS YANG DIKERJAKAN</label><textarea name="tasks" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm h-20">${airdrop?.tasks || ''}</textarea></div>
+                        <div><label class="text-xs text-zinc-400">ESTIMASI REWARD</label><input type="text" name="reward" value="${airdrop?.reward || ''}" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm"></div>
+                        <div><label class="text-xs text-zinc-400">CATATAN</label><textarea name="notes" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-4 py-3 text-sm h-16">${airdrop?.notes || ''}</textarea></div>
+                    </div>
+                    <div class="flex gap-3 mt-6">
+                        <button type="button" onclick="closeModal()" class="flex-1 py-3 border border-zinc-700 rounded-2xl">Batal</button>
+                        <button type="submit" class="flex-1 py-3 bg-indigo-600 rounded-2xl">${isEdit ? 'Simpan Perubahan' : 'Tambahkan'}</button>
+                    </div>
+                </form>
+            `;
+            openModal();
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                name: form.name.value.trim(),
+                chain: form.chain.value.trim(),
+                status: form.status.value,
+                completed_date: form.completed_date.value || null,
+                end_date: form.end_date.value || null,
+                wallet: form.wallet.value.trim(),
+                email: form.email.value.trim(),
+                social: form.social.value.trim(),
+                tasks: form.tasks.value.trim(),
+                reward: form.reward.value.trim(),
+                notes: form.notes.value.trim()
+            };
+
+            if (currentEditId) {
+                const idx = airdrops.findIndex(a => a.id === currentEditId);
+                if (idx !== -1) airdrops[idx] = { ...airdrops[idx], ...data };
+            } else {
+                airdrops.unshift({ id: Date.now(), ...data, created_at: new Date().toISOString().split('T')[0] });
+            }
+            saveAirdrops();
+            closeModal();
+            renderStats();
+            renderAirdrops();
+        }
+
+        function openAddModal() { currentEditId = null; showFormModal(); }
+        function openEditModal(id) { currentEditId = id; const item = airdrops.find(a => a.id === id); if (item) showFormModal(item); }
+
+        function openDetailModal(id) {
+            const a = airdrops.find(x => x.id === id);
+            if (!a) return;
+            const statusClass = a.status === 'completed' ? 'status-completed' : a.status === 'in_progress' ? 'status-progress' : 'status-pending';
+            document.getElementById('modal-title').textContent = a.name;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex gap-2"><span class="status-badge ${statusClass}">${a.status}</span> <span class="px-3 py-1 bg-zinc-800 rounded-2xl text-xs">${a.chain}</span></div>
+                    ${a.wallet ? `<div><strong>Wallet:</strong> ${a.wallet}</div>` : ''}
+                    ${a.email ? `<div><strong>Email:</strong> ${a.email}</div>` : ''}
+                    ${a.end_date ? `<div><strong>End Date:</strong> ${formatDate(a.end_date)}</div>` : ''}
+                    ${a.social ? `<a href="${a.social}" target="_blank" class="text-indigo-400">Social Link →</a>` : ''}
+                    <div><strong>Tugas:</strong><div class="bg-zinc-800 p-3 rounded-2xl mt-1">${a.tasks || '-'}</div></div>
+                    ${a.reward ? `<div><strong>Reward:</strong> ${a.reward}</div>` : ''}
+                    ${a.notes ? `<div><strong>Notes:</strong> ${a.notes}</div>` : ''}
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="closeModal(); openEditModal(${a.id})" class="flex-1 py-3 border border-zinc-700 rounded-2xl">Edit</button>
+                    <button onclick="closeModal(); deleteAirdrop(${a.id})" class="flex-1 py-3 border border-red-900 text-red-400 rounded-2xl">Hapus</button>
+                </div>
+            `;
+            openModal();
+        }
+
+        function deleteAirdrop(id) {
+            if (!confirm('Hapus airdrop ini?')) return;
+            airdrops = airdrops.filter(a => a.id !== id);
+            saveAirdrops();
+            closeModal();
+            renderStats();
+            renderAirdrops();
+        }
+
+        function exportData() {
+            const blob = new Blob([JSON.stringify(airdrops, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `not-yours-airdrop-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+
+        function importData(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = ev => {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (confirm(`Import ${data.length} airdrop? Data lama akan diganti.`)) {
+                        airdrops = data;
+                        saveAirdrops();
+                        renderStats();
+                        renderAirdrops();
+                    }
+                } catch { alert('File tidak valid'); }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        }
+
+        function clearAllData() {
+            if (confirm('Hapus semua data?')) {
+                airdrops = [];
+                localStorage.removeItem('notyours_airdrops');
+                renderStats();
+                renderAirdrops();
+            }
+        }
+
+        function initialize() {
+            loadAirdrops();
+            renderStats();
+            renderAirdrops();
+            setupSearch();
+            // Set initial filter button style
+            document.getElementById('filter-all').classList.add('active', 'bg-indigo-600');
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', e => {
+                if (e.key === '/' && document.activeElement.tagName === 'BODY') { e.preventDefault(); document.getElementById('search-input').focus(); }
+                if (e.metaKey && e.key === 'k') { e.preventDefault(); openAddModal(); }
+                if (e.key === 'Escape') closeModal();
+            });
+        }
+        window.onload = initialize;
+    </script>
+</body>
+</html>
