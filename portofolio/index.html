@@ -3,15 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gaizka Nazaryo - Junior Software Developer & UI/UX Designer | Portfolio">
-    <meta name="keywords" content="Gaizka Nazaryo, portfolio, web developer, UI/UX designer, programmer, Jakarta">
-    <title>Gaizka Nazaryo • Portfolio</title>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SEO Meta Tags -->
+    <title>Gaizka Nazaryo | Junior Software Developer & UI/UX Designer</title>
+    <meta name="description" content="Fresh graduate SMK Teknik Informatika dari Gresik. Junior Software Developer & UI/UX Designer dengan pengalaman hardware & software. Terbuka untuk peluang kerja.">
+    <meta name="keywords" content="Gaizka Nazaryo, web developer, UI/UX designer, frontend developer, programmer Gresik, portfolio developer Indonesia, junior developer">
+    <meta name="author" content="Gaizka Nazaryo">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gaizka Nazaryo | Junior Software Developer & UI/UX Designer">
+    <meta property="og:description" content="Fresh graduate SMK Teknik Informatika Gresik. Junior Web Developer & UI/UX Designer dengan pengalaman software dan hardware.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/a957f733a801e774d46cea9b700d0e6d.jpg">
+    <meta property="og:url" content="https://notyourba3.github.io">
+    <meta property="og:site_name" content="Gaizka Nazaryo Portfolio">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gaizka Nazaryo | Junior Software Developer & UI/UX Designer">
+    <meta name="twitter:description" content="Fresh graduate SMK Teknik Informatika Gresik. Junior Web Developer & UI/UX Designer.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/a957f733a801e774d46cea9b700d0e6d.jpg">
+    
+    <!-- Preconnect for faster external resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
+    
+    <!-- Tailwind CSS (deferred for better performance) -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gaizka Nazaryo",
+      "jobTitle": "Junior Software Developer & UI/UX Designer",
+      "description": "Fresh graduate SMK Teknik Informatika dari Gresik dengan pengalaman di software development dan IT support.",
+      "url": "https://notyourba3.github.io",
+      "image": "https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/a957f733a801e774d46cea9b700d0e6d.jpg",
+      "sameAs": [
+        "https://github.com/notyourba3",
+        "https://www.linkedin.com/in/gaizka-nazaryo-ba48311b0",
+        "https://x.com/flaffylatte",
+        "https://www.youtube.com/@xz1co"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gresik",
+        "addressRegion": "Jawa Timur",
+        "addressCountry": "Indonesia"
+      }
+    }
+    </script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
@@ -132,22 +180,12 @@
             </div>
 
             <div class="flex items-center gap-x-3">
-                <!-- Theme Toggle + Language Switcher -->
-                <div class="flex items-center gap-x-2">
-                    <!-- Theme Toggle -->
-                    <button onclick="toggleTheme()" id="theme-toggle"
-                            class="w-9 h-9 flex items-center justify-center border border-slate-700 hover:bg-slate-900 rounded-2xl transition-colors text-sm"
-                            title="Toggle Theme">
-                        <i class="fa-solid fa-moon" id="theme-icon"></i>
-                    </button>
-
-                    <!-- Language Switcher -->
-                    <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs font-medium">
-                        <button onclick="switchLanguage('en')" id="lang-en"
-                                class="px-3 py-1 rounded-[12px] bg-white text-slate-950 transition-all">EN</button>
-                        <button onclick="switchLanguage('id')" id="lang-id"
-                                class="px-3 py-1 rounded-[12px] hover:bg-slate-800 transition-all">ID</button>
-                    </div>
+                <!-- Language Switcher -->
+                <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs font-medium">
+                    <button onclick="switchLanguage('en')" id="lang-en"
+                            class="px-3 py-1 rounded-[12px] bg-white text-slate-950 transition-all">EN</button>
+                    <button onclick="switchLanguage('id')" id="lang-id"
+                            class="px-3 py-1 rounded-[12px] hover:bg-slate-800 transition-all">ID</button>
                 </div>
 
                 <!-- Download CV Button -->
@@ -178,12 +216,8 @@
                 <a href="#contact" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Contact</a>
                 
                 <div class="pt-3 border-t border-slate-800 mt-2 flex flex-col gap-y-2">
-                    <!-- Theme & Language on Mobile -->
+                    <!-- Language on Mobile -->
                     <div class="flex items-center justify-center gap-x-2">
-                        <button onclick="toggleTheme()" class="flex-1 py-2.5 border border-slate-700 rounded-2xl flex items-center justify-center gap-x-2 text-sm">
-                            <i class="fa-solid fa-moon"></i>
-                            <span>Theme</span>
-                        </button>
                         <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs">
                             <button onclick="switchLanguage('en')" class="px-3 py-1.5 rounded-[12px]">EN</button>
                             <button onclick="switchLanguage('id')" class="px-3 py-1.5 rounded-[12px] hover:bg-slate-800">ID</button>
@@ -363,7 +397,16 @@
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Python</span>
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Git &amp; GitHub</span>
                 </div>
-                <div class="mt-6 text-xs text-slate-400">Core focus: Frontend development &amp; responsive interfaces</div>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-slate-400">Overall Level</span>
+                        <span class="font-semibold">75%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-indigo-500 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="mt-2 text-xs text-slate-400">Core focus: Frontend development &amp; responsive interfaces</div>
             </div>
             
             <!-- Design -->
@@ -380,7 +423,16 @@
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Prototyping</span>
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">User Research</span>
                 </div>
-                <div class="mt-6 text-xs text-slate-400">I bridge the gap between design and development</div>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-slate-400">Overall Level</span>
+                        <span class="font-semibold">70%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-violet-500 h-2 rounded-full" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="mt-2 text-xs text-slate-400">I bridge the gap between design and development</div>
             </div>
             
             <!-- Tools -->
@@ -398,12 +450,18 @@
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Figma to Code</span>
                     <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">REST APIs</span>
                 </div>
+                <div class="mt-4">
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-slate-400">Overall Level</span>
+                        <span class="font-semibold">65%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2">
+                        <div class="bg-teal-500 h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="mt-8 text-center">
-            <p class="text-xs text-slate-400">— Edit this section to match the exact technologies and tools you are proficient in —</p>
-        </div>
     </section>
 
     <!-- PROJECTS -->
@@ -424,7 +482,7 @@
             <!-- Project 1 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/160/800/600" alt="E-commerce Platform Screenshot" 
+                    <img src="https://picsum.photos/id/160/800/600" alt="E-commerce Platform Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">WEB</div>
                 </div>
@@ -452,7 +510,7 @@
             <!-- Project 2 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/251/800/600" alt="TaskFlow App Screenshot" 
+                    <img src="https://picsum.photos/id/251/800/600" alt="TaskFlow App Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">APP</div>
                 </div>
@@ -480,7 +538,7 @@
             <!-- Project 3 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/1015/800/600" alt="Analytics Dashboard Screenshot" 
+                    <img src="https://picsum.photos/id/1015/800/600" alt="Analytics Dashboard Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">DASHBOARD</div>
                 </div>
@@ -526,7 +584,7 @@
                 <!-- Certificate Image -->
                 <div class="md:w-5/12 relative">
                     <img src="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/sertifikat-bssn.jpg" 
-                         alt="Sertifikat Apresiasi BSSN - Gaizka Nazaryo" 
+                         alt="Sertifikat Apresiasi BSSN - Gaizka Nazaryo" loading="lazy"
                          class="w-full h-full object-cover md:rounded-l-3xl">
                     <div class="absolute top-4 left-4 bg-black/70 text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wider">
                         OFFICIAL • BSSN
@@ -645,10 +703,6 @@
             </div>
         </div>
         
-        <div class="mt-8 text-xs text-center text-slate-400">
-            <!-- TODO: Update with your actual school names, dates, GPA if relevant, and real work experience or internships -->
-            <strong>Tip:</strong> Replace the education and experience sections with your actual background for the most accurate and professional portfolio.
-        </div>
     </section>
 
     <!-- CONTACT -->
@@ -943,49 +997,7 @@
             // If you want auto, uncomment: switchLanguage(initialLang);
         }
 
-        // Theme Toggle (Dark / Light)
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            
-            if (html.classList.contains('dark')) {
-                // Switch to Light
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                if (icon) {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                }
-            } else {
-                // Switch to Dark
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                if (icon) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                }
-            }
-        }
-
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const icon = document.getElementById('theme-icon');
-            const html = document.documentElement;
-            
-            if (savedTheme === 'light') {
-                html.classList.remove('dark');
-                if (icon) {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                }
-            } else {
-                html.classList.add('dark');
-                if (icon) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                }
-            }
-        }
+        // Theme is fixed to Dark Mode (best experience)
         
         // Initialize everything
         function init() {
@@ -993,7 +1005,6 @@
             setupSmoothScroll();
             setupKeyboardSupport();
             initLanguage();
-            initTheme();
             
             // Optional: Add subtle animation to project cards on scroll (intersection observer)
             const observer = new IntersectionObserver((entries) => {
