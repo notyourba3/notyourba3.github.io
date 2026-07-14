@@ -83,6 +83,69 @@
         .nav-link {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-card, .skill-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover, .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+
+        .soft-skill-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .soft-skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        /* Scroll Animation */
+        .fade-in-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Animation */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         .nav-link:hover {
             color: #6366f1;
@@ -201,21 +264,39 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-6 py-4">
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-6 py-5">
             <div class="flex flex-col gap-y-2 text-sm">
-                <a href="#about" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">About</a>
-                <a href="#skills" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Skills</a>
-                <a href="#projects" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Projects</a>
-                <a href="#certifications" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Certifications</a>
-                <a href="#journey" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Journey</a>
-                <a href="#contact" class="py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors flex items-center">Contact</a>
+                <a href="#about" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-user w-5 text-indigo-400"></i> 
+                    <span>About</span>
+                </a>
+                <a href="#skills" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-cogs w-5 text-indigo-400"></i> 
+                    <span>Skills</span>
+                </a>
+                <a href="#projects" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-folder-open w-5 text-indigo-400"></i> 
+                    <span>Projects</span>
+                </a>
+                <a href="#certifications" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-certificate w-5 text-indigo-400"></i> 
+                    <span>Certifications</span>
+                </a>
+                <a href="#journey" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-road w-5 text-indigo-400"></i> 
+                    <span>Journey</span>
+                </a>
+                <a href="#contact" class="flex items-center gap-x-3 py-3 px-4 rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-envelope w-5 text-indigo-400"></i> 
+                    <span>Contact</span>
+                </a>
                 
-                <div class="pt-3 border-t border-slate-800 mt-2 flex flex-col gap-y-2">
-                    <!-- Language on Mobile -->
-                    <div class="flex items-center justify-center gap-x-2">
-                        <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs">
-                            <button onclick="switchLanguage('en')" class="px-3 py-1.5 rounded-[12px]">EN</button>
-                            <button onclick="switchLanguage('id')" class="px-3 py-1.5 rounded-[12px] hover:bg-slate-800">ID</button>
+                <div class="pt-4 border-t border-slate-800 mt-2 flex flex-col gap-y-3">
+                    <!-- Language Switcher on Mobile -->
+                    <div class="flex items-center justify-center">
+                        <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs font-medium">
+                            <button onclick="switchLanguage('en')" class="px-4 py-1.5 rounded-[12px] hover:bg-slate-800">EN</button>
+                            <button onclick="switchLanguage('id')" class="px-4 py-1.5 rounded-[12px] hover:bg-slate-800">ID</button>
                         </div>
                     </div>
 
@@ -287,7 +368,7 @@
                             <div class="flex items-center gap-x-3">
                                 <div>
                                     <div class="text-emerald-400 text-xs font-semibold">CURRENTLY BASED IN</div>
-                                    <div class="font-semibold">Jakarta, Indonesia</div>
+                                    <div class="font-semibold">Gresik, Indonesia</div>
                                 </div>
                             </div>
                         </div>
@@ -343,11 +424,15 @@
                         </div>
                         <div class="flex justify-between items-start border-b border-slate-700 pb-4">
                             <div class="text-slate-400">Email</div>
-                            <a href="mailto:gaizkanazaryo@gmail.com" class="font-semibold text-indigo-400 hover:underline">gaizkanazaryo@gmail.com</a>
+                            <a href="mailto:gaizkanazaryo@gmail.com" 
+                               class="flex items-center gap-x-2 font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                                <i class="fa-solid fa-envelope text-sm"></i>
+                                <span>gaizkanazaryo@gmail.com</span>
+                            </a>
                         </div>
                         <div class="flex justify-between items-start border-b border-slate-700 pb-4">
                             <div class="text-slate-400">Location</div>
-                            <div class="font-semibold text-right">Jakarta, Indonesia</div>
+                            <div class="font-semibold text-right">Gresik, Indonesia</div>
                         </div>
                         <div class="flex justify-between items-start border-b border-slate-700 pb-4">
                             <div class="text-slate-400">Place of Birth</div>
@@ -456,6 +541,64 @@
                 </div>
             </div>
         </div>
+
+        <!-- Soft Skills -->
+        <div class="mt-12">
+            <div class="flex items-center gap-x-3 mb-6">
+                <i class="fa-solid fa-user-friends text-xl text-indigo-400"></i>
+                <h3 class="font-semibold text-xl">Soft Skills</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-lightbulb text-2xl text-yellow-400"></i>
+                    <div>
+                        <div class="font-semibold">Problem Solving</div>
+                        <div class="text-xs text-slate-400">Mampu menganalisis dan menyelesaikan masalah dengan efektif</div>
+                    </div>
+                </div>
+                
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-comments text-2xl text-blue-400"></i>
+                    <div>
+                        <div class="font-semibold">Communication</div>
+                        <div class="text-xs text-slate-400">Komunikasi yang baik, baik lisan maupun tulisan</div>
+                    </div>
+                </div>
+                
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-headset text-2xl text-green-400"></i>
+                    <div>
+                        <div class="font-semibold">Customer Service</div>
+                        <div class="text-xs text-slate-400">Berpengalaman melayani pelanggan secara langsung</div>
+                    </div>
+                </div>
+                
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-users text-2xl text-purple-400"></i>
+                    <div>
+                        <div class="font-semibold">Teamwork</div>
+                        <div class="text-xs text-slate-400">Bisa bekerja sama dengan baik dalam tim</div>
+                    </div>
+                </div>
+                
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-orange-400"></i>
+                    <div>
+                        <div class="font-semibold">Fast Learner</div>
+                        <div class="text-xs text-slate-400">Cepat belajar teknologi dan konsep baru</div>
+                    </div>
+                </div>
+                
+                <div class="soft-skill-card bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 flex items-center gap-x-4">
+                    <i class="fa-solid fa-clock text-2xl text-teal-400"></i>
+                    <div>
+                        <div class="font-semibold">Time Management</div>
+                        <div class="text-xs text-slate-400">Disiplin dalam mengatur waktu dan deadline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </section>
 
@@ -477,20 +620,23 @@
             <!-- Project 1 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/160/800/600" alt="E-commerce Platform Screenshot" 
+                    <img src="https://picsum.photos/id/160/800/600" alt="E-commerce Platform Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">WEB</div>
                 </div>
                 <div class="p-7 flex-1 flex flex-col">
-                    <h3 class="font-semibold text-2xl tracking-tight">ShopEase — E-commerce Platform</h3>
-                    <p class="mt-3 text-sm text-slate-300 flex-1">Modern responsive e-commerce website with cart functionality, product filtering, and beautiful product pages. Built with clean code and delightful micro-interactions.</p>
+                    <h3 class="font-semibold text-2xl tracking-tight">School Profile Website</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Website profil sekolah sederhana dengan halaman beranda, tentang, dan galeri. Dibuat sebagai tugas akhir semester menggunakan HTML, CSS, dan JavaScript.</p>
+                    
+                    <div class="mt-2 text-xs text-slate-400">
+                        <strong>Apa yang dipelajari:</strong> Struktur website yang rapi, responsive design, dan dasar JavaScript untuk interaksi.
+                    </div>
                     
                     <div class="mt-auto pt-5">
                         <div class="flex flex-wrap gap-1.5 mb-5">
                             <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">HTML</span>
-                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Tailwind CSS</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">CSS</span>
                             <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">JavaScript</span>
-                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Figma</span>
                         </div>
                         
                         <div class="flex items-center gap-x-3">
@@ -505,13 +651,17 @@
             <!-- Project 2 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/251/800/600" alt="TaskFlow App Screenshot" 
+                    <img src="https://picsum.photos/id/251/800/600" alt="TaskFlow App Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">APP</div>
                 </div>
                 <div class="p-7 flex-1 flex flex-col">
-                    <h3 class="font-semibold text-2xl tracking-tight">TaskFlow — Productivity Web App</h3>
-                    <p class="mt-3 text-sm text-slate-300 flex-1">Full-featured task management application with drag &amp; drop, categories, due dates, and local storage persistence. Designed with excellent UX and accessibility in mind.</p>
+                    <h3 class="font-semibold text-2xl tracking-tight">Simple Todo List App</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Aplikasi daftar tugas sederhana dengan fitur tambah, hapus, dan tandai selesai. Data disimpan menggunakan localStorage agar tetap tersimpan meski halaman di-refresh.</p>
+                    
+                    <div class="mt-2 text-xs text-slate-400">
+                        <strong>Apa yang dipelajari:</strong> JavaScript DOM manipulation dan penggunaan localStorage untuk menyimpan data.
+                    </div>
                     
                     <div class="mt-auto pt-5">
                         <div class="flex flex-wrap gap-1.5 mb-5">
@@ -533,13 +683,17 @@
             <!-- Project 3 -->
             <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
                 <div class="relative h-48 bg-slate-800">
-                    <img src="https://picsum.photos/id/1015/800/600" alt="Analytics Dashboard Screenshot" 
+                    <img src="https://picsum.photos/id/1015/800/600" alt="Analytics Dashboard Screenshot" loading="lazy"
                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">DASHBOARD</div>
                 </div>
                 <div class="p-7 flex-1 flex flex-col">
-                    <h3 class="font-semibold text-2xl tracking-tight">InsightHub — Analytics Dashboard</h3>
-                    <p class="mt-3 text-sm text-slate-300 flex-1">Interactive data visualization dashboard with charts, filters, and clean UI. Built to demonstrate strong frontend skills combined with thoughtful information architecture.</p>
+                    <h3 class="font-semibold text-2xl tracking-tight">Personal Portfolio Website</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Website portofolio pribadi yang menampilkan profil, keahlian, dan project. Dibuat menggunakan Tailwind CSS untuk latihan membuat tampilan yang modern dan responsif.</p>
+                    
+                    <div class="mt-2 text-xs text-slate-400">
+                        <strong>Apa yang dipelajari:</strong> Penggunaan Tailwind CSS, responsive design, dan struktur website yang bersih.
+                    </div>
                     
                     <div class="mt-auto pt-5">
                         <div class="flex flex-wrap gap-1.5 mb-5">
@@ -560,8 +714,8 @@
         </div>
         
         <div class="mt-8 text-center text-xs px-4">
-            <span class="text-slate-400">These are example projects. </span> 
-            <span class="font-medium text-slate-300">Replace with your real projects, screenshots, GitHub links, and certificate images.</span>
+            <span class="text-slate-400">Ini adalah contoh project. </span> 
+            <span class="font-medium text-slate-300">Ganti dengan project asli kamu + screenshot dan link GitHub.</span>
         </div>
     </section>
 
@@ -579,7 +733,7 @@
                 <!-- Certificate Image -->
                 <div class="md:w-5/12 relative">
                     <img src="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/sertifikat-bssn.jpg" 
-                         alt="Sertifikat Apresiasi BSSN - Gaizka Nazaryo" 
+                         alt="Sertifikat Apresiasi BSSN - Gaizka Nazaryo" loading="lazy"
                          class="w-full h-full object-cover md:rounded-l-3xl">
                     <div class="absolute top-4 left-4 bg-black/70 text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wider">
                         OFFICIAL • BSSN
@@ -642,6 +796,19 @@
                     <div class="relative pl-8 timeline-item">
                         <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-indigo-600 ring-4 ring-slate-950"></div>
                         <div>
+                            <div class="font-semibold">Universitas Muhammadiyah Gresik</div>
+                            <div class="text-sm text-slate-300">S1 Informatika (Tidak Lanjut)</div>
+                            <div class="text-xs text-slate-400 mt-0.5">2024 • Gresik, Jawa Timur</div>
+                            
+                            <div class="mt-3 text-sm text-slate-300">
+                                Mengambil dasar pemrograman dan algoritma sebelum memutuskan untuk fokus pada pembelajaran praktis dan pengembangan skill mandiri.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-indigo-600 ring-4 ring-slate-950"></div>
+                        <div>
                             <div class="font-semibold">SMK NU Terate Gresik</div>
                             <div class="text-sm text-slate-300">Jurusan Teknik Informatika</div>
                             <div class="text-xs text-slate-400 mt-0.5">2021 — 2024 • Gresik, Jawa Timur</div>
@@ -678,10 +845,39 @@
                             <div class="text-sm">Teracom • 2023 — 2024 • Gresik, Jawa Timur</div>
                             
                             <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
-                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Serviced and repaired laptops &amp; desktop computers (hardware troubleshooting)</li>
-                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Installed operating systems, drivers, and various software for customers</li>
-                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Performed printer maintenance and repair</li>
-                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Handled cashier duties and provided excellent customer service at the computer retail store</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Melakukan perbaikan dan maintenance laptop serta komputer desktop untuk pelanggan</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Menginstal sistem operasi, driver, dan berbagai software sesuai kebutuhan user</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Melakukan servis dan perawatan printer serta perangkat keras lainnya</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Menangani kasir dan memberikan pelayanan pelanggan secara langsung di toko komputer</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Meningkatkan kemampuan troubleshooting hardware &amp; software dalam lingkungan retail IT</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">Content Creator &amp; Brand Endorsement</div>
+                            <div class="text-sm text-slate-300">2018 — 2022</div>
+                            
+                            <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Membangun channel YouTube dari nol hingga 4.000 subscribers dan 100.000 jam tayang (sudah dimonetisasi)</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Mendapatkan beberapa kesempatan endorsement dari brand lokal</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Bertanggung jawab atas content strategy, video editing, thumbnail design, dan personal branding</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">Personal Tech Blog</div>
+                            <div class="text-sm text-slate-300">indoxcoder.blogspot.com • 2022 — 2023</div>
+                            
+                            <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Membuat dan mengelola blog teknologi bernama IndoXCoder menggunakan Blogger</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Menulis artikel tentang programming, teknologi, dan pengalaman belajar</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Melakukan customisasi tema dan SEO sederhana</li>
                             </ul>
                         </div>
                     </div>
@@ -709,9 +905,9 @@
             
             <div class="mt-9">
                 <a href="mailto:gaizkanazaryo@gmail.com" 
-                   class="inline-flex items-center justify-center gap-x-3 text-xl font-semibold bg-white hover:bg-slate-100 active:bg-slate-200 transition-all text-slate-950 px-9 h-[58px] rounded-3xl">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>gaizkanazaryo@gmail.com</span>
+                   class="group inline-flex items-center justify-center gap-x-3 text-lg font-semibold bg-white hover:bg-slate-100 active:bg-slate-200 transition-all text-slate-950 px-10 h-[62px] rounded-3xl shadow-lg hover:shadow-xl">
+                    <i class="fa-solid fa-envelope text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="font-medium">gaizkanazaryo@gmail.com</span>
                 </a>
             </div>
             
@@ -1001,19 +1197,47 @@
             setupKeyboardSupport();
             initLanguage();
             
-            // Optional: Add subtle animation to project cards on scroll (intersection observer)
-            const observer = new IntersectionObserver((entries) => {
+            // Scroll Animation with Stagger Effect
+            const scrollObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
+                        const target = entry.target;
+                        
+                        if (target.classList.contains('stagger-container')) {
+                            // Stagger animation for child elements
+                            const children = target.querySelectorAll('.stagger-item');
+                            children.forEach((child, index) => {
+                                setTimeout(() => {
+                                    child.classList.add('visible');
+                                }, index * 120); // 120ms delay between each item
+                            });
+                        } else {
+                            target.classList.add('visible');
+                        }
+                        
+                        scrollObserver.unobserve(target);
                     }
                 });
-            }, { threshold: 0.1 });
-            
-            document.querySelectorAll('.project-card').forEach(card => {
-                card.style.opacity = '0.95';
-                observer.observe(card);
+            }, { 
+                threshold: 0.1,
+                rootMargin: "0px 0px -30px 0px"
             });
+            
+            // Apply fade-in-scroll to project cards and timeline
+            document.querySelectorAll('.project-card, .timeline-item').forEach(el => {
+                el.classList.add('fade-in-scroll');
+                scrollObserver.observe(el);
+            });
+            
+            // Apply stagger animation to Soft Skills section
+            const softSkillsContainer = document.querySelector('.grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4');
+            if (softSkillsContainer) {
+                softSkillsContainer.classList.add('stagger-container');
+                softSkillsContainer.querySelectorAll('.soft-skill-card').forEach(card => {
+                    card.classList.add('stagger-item');
+                });
+                scrollObserver.observe(softSkillsContainer);
+            }
             
             // Easter egg: Click logo to scroll to top
             const logo = document.querySelector('.fa-solid.fa-code, .w-9.h-9');
