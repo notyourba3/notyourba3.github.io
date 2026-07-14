@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gaizka Nazaryo - Junior Software Developer & UI/UX Designer | Portfolio">
+    <meta name="keywords" content="Gaizka Nazaryo, portfolio, web developer, UI/UX designer, programmer, Jakarta">
+    <title>Gaizka Nazaryo • Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #6366f1;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .nav-link {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover {
+            color: #6366f1;
+            transform: translateY(-1px);
+        }
+
+        .skill-badge {
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1), 
+                       0 4px 6px -4px rgb(15 23 42 / 0.1);
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background: radial-gradient(at center, #0f172a 0%, #020617 100%);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(#6366f1, transparent);
+        }
+
+        .glass {
+            background: rgba(255,255,255, 0.05);
+            backdrop-filter: blur(12px);
+        }
+        
+        .portfolio-container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- NAV -->
+    <nav class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/90 backdrop-blur-lg">
+        <div class="portfolio-container px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-2.5">
+                    <div class="w-9 h-9 rounded-2xl bg-indigo-600 flex items-center justify-center">
+                        <span class="text-white font-bold text-xl tracking-tighter">GN</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-xl tracking-tight">Gaizka Nazaryo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-8 text-sm">
+                <a href="#about" class="nav-link font-medium text-slate-300 hover:text-white">About</a>
+                <a href="#skills" class="nav-link font-medium text-slate-300 hover:text-white">Skills</a>
+                <a href="#projects" class="nav-link font-medium text-slate-300 hover:text-white">Projects</a>
+                <a href="#certifications" class="nav-link font-medium text-slate-300 hover:text-white">Certifications</a>
+                <a href="#journey" class="nav-link font-medium text-slate-300 hover:text-white">Journey</a>
+                <a href="#contact" class="nav-link font-medium text-slate-300 hover:text-white">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-x-3">
+                <!-- Theme Toggle + Language Switcher -->
+                <div class="hidden md:flex items-center gap-x-2">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" id="theme-toggle"
+                            class="w-9 h-9 flex items-center justify-center border border-slate-700 hover:bg-slate-900 rounded-2xl transition-colors text-sm"
+                            title="Toggle Theme">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+
+                    <!-- Language Switcher -->
+                    <div class="flex items-center border border-slate-700 rounded-2xl p-0.5 text-xs font-medium">
+                        <button onclick="switchLanguage('en')" id="lang-en"
+                                class="px-3 py-1 rounded-[12px] bg-white text-slate-950 transition-all">EN</button>
+                        <button onclick="switchLanguage('id')" id="lang-id"
+                                class="px-3 py-1 rounded-[12px] hover:bg-slate-800 transition-all">ID</button>
+                    </div>
+                </div>
+
+                <!-- Download CV Button -->
+                <a href="#" 
+                   onclick="alert('Please replace this with a link to your actual CV PDF. You can host it on Google Drive or add it to your GitHub.'); return false;"
+                   class="hidden sm:flex items-center gap-x-2 px-4 py-2 text-sm font-semibold rounded-2xl border border-slate-700 hover:bg-slate-900 transition-colors">
+                    <i class="fa-solid fa-download text-xs"></i>
+                    <span>Download CV</span>
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn"
+                        class="md:hidden w-10 h-10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-900 rounded-2xl transition-colors"
+                        onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-6 py-4">
+            <div class="flex flex-col gap-y-1 text-sm">
+                <a href="#about" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">About</a>
+                <a href="#skills" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">Skills</a>
+                <a href="#projects" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">Projects</a>
+                <a href="#certifications" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">Certifications</a>
+                <a href="#journey" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">Journey</a>
+                <a href="#contact" class="py-3 px-4 rounded-2xl hover:bg-slate-900 transition-colors">Contact</a>
+                
+                <div class="pt-3 border-t border-slate-800 mt-2">
+                    <a href="#" onclick="alert('Replace with your CV link'); return false;"
+                       class="flex items-center justify-center gap-x-2 w-full py-3 text-sm font-semibold rounded-2xl bg-slate-900 hover:bg-slate-800 transition-colors">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download CV</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg border-b border-slate-800">
+        <div class="portfolio-container px-6 pt-16 pb-20 md:pt-20 md:pb-24">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text -->
+                <div class="md:col-span-7 lg:col-span-7">
+                    <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-700 mb-6">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-emerald-400 text-xs font-semibold tracking-[1px]">OPEN TO OPPORTUNITIES</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tighter font-bold heading-font">
+                        Hi, I'm<br>
+                        <span class="accent-gradient">Gaizka Nazaryo</span>
+                    </h1>
+                    
+                    <p class="mt-6 max-w-lg text-xl text-slate-300">
+                        Junior Software Developer &amp; UI/UX Designer crafting clean, delightful digital products.
+                    </p>
+                    
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#projects" 
+                           class="inline-flex items-center justify-center gap-x-3 bg-white text-slate-950 hover:bg-slate-100 font-semibold px-8 h-12 rounded-3xl transition-all active:scale-[0.985]">
+                            <span>View My Work</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        
+                        <a href="#contact" 
+                           class="inline-flex items-center justify-center gap-x-3 border border-slate-700 hover:bg-slate-900 font-semibold px-8 h-12 rounded-3xl transition-all">
+                            <span>Get in Touch</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-x-6 text-sm">
+                        <div class="flex -space-x-2">
+                            <div class="w-7 h-7 rounded-full bg-slate-700 ring-2 ring-slate-950 overflow-hidden"><img src="https://picsum.photos/id/1005/28/28" class="w-full h-full object-cover"></div>
+                            <div class="w-7 h-7 rounded-full bg-slate-700 ring-2 ring-slate-950 overflow-hidden"><img src="https://picsum.photos/id/1011/28/28" class="w-full h-full object-cover"></div>
+                            <div class="w-7 h-7 rounded-full bg-slate-700 ring-2 ring-slate-950 overflow-hidden"><img src="https://picsum.photos/id/201/28/28" class="w-full h-full object-cover"></div>
+                        </div>
+                        <span class="text-slate-400 text-sm">Featured in personal projects &amp; client work</span>
+                    </div>
+                </div>
+                
+                <!-- Hero Photo -->
+                <div class="md:col-span-5 lg:col-span-5 relative">
+                    <div class="relative mx-auto md:ml-auto w-full max-w-[340px]">
+                        <div class="aspect-[4/3.8] rounded-[3rem] overflow-hidden ring-1 ring-slate-700 shadow-2xl modern-shadow">
+                            <img src="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/a957f733a801e774d46cea9b700d0e6d.jpg" 
+                                 alt="Gaizka Nazaryo - Professional portrait" 
+                                 class="w-full h-full object-cover object-[center_15%]">
+                        </div>
+                        
+                        <!-- Decorative elements -->
+                        <div class="absolute -bottom-4 -right-4 bg-slate-900 border border-slate-700 rounded-3xl px-5 py-3 shadow-xl hidden md:block">
+                            <div class="flex items-center gap-x-3">
+                                <div>
+                                    <div class="text-emerald-400 text-xs font-semibold">CURRENTLY BASED IN</div>
+                                    <div class="font-semibold">Jakarta, Indonesia</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -top-3 -left-3 bg-slate-900 border border-slate-700 text-xs font-mono px-3 py-1.5 rounded-2xl hidden lg:block">
+                            <span class="text-indigo-400">2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="portfolio-container px-6 py-20 border-b border-slate-800">
+        <div class="grid md:grid-cols-12 gap-x-12 gap-y-10">
+            
+            <!-- Left: Bio -->
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">01 — WHO I AM</div>
+                <h2 class="section-header tracking-tighter">A developer who cares<br>about the details.</h2>
+                
+                <div class="prose prose-invert max-w-none mt-7 text-[15.5px] text-slate-300 leading-relaxed">
+                    <p>I'm a fresh graduate from SMK NU Terate Gresik (Teknik Informatika) currently based in Jakarta. I have hands-on experience in both software and hardware — from building responsive websites to troubleshooting computers and installing systems during my internship.</p>
+                    
+                    <p class="mt-4">I love combining clean code with thoughtful design. My goal is to grow as a web developer while continuing to explore UI/UX and IT support roles. I approach every project with curiosity, attention to detail, and a strong desire to keep learning.</p>
+                </div>
+                
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <div class="px-4 py-2 bg-slate-900 rounded-2xl text-sm flex items-center gap-x-2 border border-slate-700">
+                        <i class="fa-solid fa-globe text-indigo-400"></i>
+                        <span class="font-medium">English &amp; Bahasa Indonesia</span>
+                    </div>
+                    <div class="px-4 py-2 bg-slate-900 rounded-2xl text-sm flex items-center gap-x-2 border border-slate-700">
+                        <i class="fa-solid fa-briefcase text-indigo-400"></i>
+                        <span class="font-medium">Open to Full-time / Freelance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Identity Details -->
+            <div class="md:col-span-5">
+                <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8">
+                    <h3 class="font-semibold mb-6 flex items-center gap-x-2">
+                        <i class="fa-solid fa-id-card text-indigo-400"></i> 
+                        <span>Complete Identity</span>
+                    </h3>
+                    
+                    <div class="space-y-5 text-sm">
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                            <div class="text-slate-400">Full Name</div>
+                            <div class="font-semibold text-right">Gaizka Nazaryo</div>
+                        </div>
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                            <div class="text-slate-400">Email</div>
+                            <a href="mailto:gaizkanazaryo@gmail.com" class="font-semibold text-indigo-400 hover:underline">gaizkanazaryo@gmail.com</a>
+                        </div>
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                            <div class="text-slate-400">Location</div>
+                            <div class="font-semibold text-right">Jakarta, Indonesia</div>
+                        </div>
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                            <div class="text-slate-400">Place of Birth</div>
+                            <div class="font-semibold text-right">Gresik, Jawa Timur</div>
+                        </div>
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                            <div class="text-slate-400">Date of Birth</div>
+                            <div class="font-semibold text-right">5 Januari 2003</div>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div class="text-slate-400">X / Twitter</div>
+                            <a href="https://x.com/merchidr" target="_blank" class="font-semibold text-indigo-400 hover:underline">@merchidr</a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-7 pt-6 border-t border-slate-700 text-xs text-slate-400">
+                        <strong class="text-slate-300">Fresh graduate SMK Teknik Informatika</strong> — ready to start career in web development &amp; IT support.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="portfolio-container px-6 py-20 border-b border-slate-800">
+        <div class="max-w-2xl">
+            <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">02 — EXPERTISE</div>
+            <h2 class="section-header tracking-tighter">Skills &amp; Tools</h2>
+            <p class="mt-4 text-slate-300">Technologies and design tools I use to bring ideas to life.</p>
+        </div>
+        
+        <div class="mt-10 grid md:grid-cols-3 gap-6">
+            
+            <!-- Programming -->
+            <div class="bg-slate-900 border border-slate-700 rounded-3xl p-7">
+                <div class="flex items-center gap-x-3 mb-5">
+                    <i class="fa-solid fa-code text-2xl text-indigo-400"></i>
+                    <h3 class="font-semibold text-xl">Programming</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">HTML5</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">CSS3 / Tailwind</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">JavaScript</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">TypeScript</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">React.js</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Python</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Git &amp; GitHub</span>
+                </div>
+                <div class="mt-6 text-xs text-slate-400">Core focus: Frontend development &amp; responsive interfaces</div>
+            </div>
+            
+            <!-- Design -->
+            <div class="bg-slate-900 border border-slate-700 rounded-3xl p-7">
+                <div class="flex items-center gap-x-3 mb-5">
+                    <i class="fa-solid fa-palette text-2xl text-violet-400"></i>
+                    <h3 class="font-semibold text-xl">Design &amp; UI/UX</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Figma</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">UI/UX Principles</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Responsive Design</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Wireframing</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Prototyping</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">User Research</span>
+                </div>
+                <div class="mt-6 text-xs text-slate-400">I bridge the gap between design and development</div>
+            </div>
+            
+            <!-- Tools -->
+            <div class="bg-slate-900 border border-slate-700 rounded-3xl p-7">
+                <div class="flex items-center gap-x-3 mb-5">
+                    <i class="fa-solid fa-tools text-2xl text-teal-400"></i>
+                    <h3 class="font-semibold text-xl">Tools &amp; Workflow</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">VS Code</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Chrome DevTools</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">npm / Yarn</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Vercel</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Netlify</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">Figma to Code</span>
+                    <span class="skill-badge px-4 py-1.5 text-xs font-medium bg-slate-800 border border-slate-700 rounded-2xl">REST APIs</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <p class="text-xs text-slate-400">— Edit this section to match the exact technologies and tools you are proficient in —</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="portfolio-container px-6 py-20 border-b border-slate-800 bg-slate-900/30">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+            <div>
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">03 — SELECTED WORK</div>
+                <h2 class="section-header tracking-tighter">Featured Projects</h2>
+            </div>
+            <a href="#" class="text-sm flex items-center gap-x-2 text-indigo-400 hover:text-indigo-300 font-medium group">
+                View all projects 
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            </a>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Project 1 -->
+            <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
+                <div class="relative h-48 bg-slate-800">
+                    <img src="https://picsum.photos/id/160/800/600" alt="E-commerce Platform Screenshot" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">WEB</div>
+                </div>
+                <div class="p-7 flex-1 flex flex-col">
+                    <h3 class="font-semibold text-2xl tracking-tight">ShopEase — E-commerce Platform</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Modern responsive e-commerce website with cart functionality, product filtering, and beautiful product pages. Built with clean code and delightful micro-interactions.</p>
+                    
+                    <div class="mt-auto pt-5">
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">HTML</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Tailwind CSS</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">JavaScript</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Figma</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-x-3">
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">Live Demo</a>
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">GitHub</a>
+                            <a href="#" class="px-4 flex items-center justify-center text-xs font-semibold py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-2xl transition"><i class="fa-solid fa-certificate mr-1.5"></i> Cert</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
+                <div class="relative h-48 bg-slate-800">
+                    <img src="https://picsum.photos/id/251/800/600" alt="TaskFlow App Screenshot" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">APP</div>
+                </div>
+                <div class="p-7 flex-1 flex flex-col">
+                    <h3 class="font-semibold text-2xl tracking-tight">TaskFlow — Productivity Web App</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Full-featured task management application with drag &amp; drop, categories, due dates, and local storage persistence. Designed with excellent UX and accessibility in mind.</p>
+                    
+                    <div class="mt-auto pt-5">
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">React</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Tailwind</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">TypeScript</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Vite</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-x-3">
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">Live Demo</a>
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">GitHub</a>
+                            <a href="#" class="px-4 flex items-center justify-center text-xs font-semibold py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-2xl transition"><i class="fa-solid fa-certificate mr-1.5"></i> Cert</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col">
+                <div class="relative h-48 bg-slate-800">
+                    <img src="https://picsum.photos/id/1015/800/600" alt="Analytics Dashboard Screenshot" 
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute top-4 right-4 px-3 py-1 text-[10px] font-semibold tracking-wider bg-black/70 backdrop-blur rounded-full">DASHBOARD</div>
+                </div>
+                <div class="p-7 flex-1 flex flex-col">
+                    <h3 class="font-semibold text-2xl tracking-tight">InsightHub — Analytics Dashboard</h3>
+                    <p class="mt-3 text-sm text-slate-300 flex-1">Interactive data visualization dashboard with charts, filters, and clean UI. Built to demonstrate strong frontend skills combined with thoughtful information architecture.</p>
+                    
+                    <div class="mt-auto pt-5">
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Python</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Streamlit</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Pandas</span>
+                            <span class="text-[10px] px-3 py-px bg-slate-800 rounded-full border border-slate-600">Figma</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-x-3">
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">Live Demo</a>
+                            <a href="#" class="flex-1 text-center text-xs font-semibold py-2.5 border border-slate-700 hover:bg-slate-800 rounded-2xl transition">GitHub</a>
+                            <a href="#" class="px-4 flex items-center justify-center text-xs font-semibold py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-2xl transition"><i class="fa-solid fa-certificate mr-1.5"></i> Cert</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-xs px-4">
+            <span class="text-slate-400">These are example projects. </span> 
+            <span class="font-medium text-slate-300">Replace with your real projects, screenshots, GitHub links, and certificate images.</span>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS & RECOGNITION -->
+    <section id="certifications" class="portfolio-container px-6 py-20 border-b border-slate-800">
+        <div class="max-w-2xl mb-10">
+            <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">04 — RECOGNITION</div>
+            <h2 class="section-header tracking-tighter">Certifications &amp; Achievements</h2>
+            <p class="mt-3 text-slate-300">Proud highlights from my journey in cybersecurity awareness and ethical practices.</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden md:flex shadow-xl">
+                
+                <!-- Certificate Image -->
+                <div class="md:w-5/12 relative">
+                    <img src="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/sertifikat-bssn.jpg" 
+                         alt="Sertifikat Apresiasi BSSN - Gaizka Nazaryo" 
+                         class="w-full h-full object-cover md:rounded-l-3xl">
+                    <div class="absolute top-4 left-4 bg-black/70 text-white text-xs px-3 py-1 rounded-full font-semibold tracking-wider">
+                        OFFICIAL • BSSN
+                    </div>
+                </div>
+                
+                <!-- Certificate Info -->
+                <div class="md:w-7/12 p-8 md:p-9 flex flex-col">
+                    <div>
+                        <div class="inline-flex items-center gap-x-2 text-xs font-semibold text-emerald-400 mb-3">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>VOLUNTARY VULNERABILITY DISCLOSURE</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-semibold tracking-tight leading-tight">Sertifikat Apresiasi<br>BSSN</h3>
+                        
+                        <div class="mt-2 text-sm text-slate-400">
+                            Badan Siber dan Sandi Negara • 09 Maret 2020
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto pt-6 border-t border-slate-700 text-sm text-slate-300 leading-relaxed">
+                        Awarded for responsibly coordinating vulnerability findings and acting ethically by reporting security issues to Indonesia's National Cyber and Crypto Agency (BSSN). 
+                        <span class="font-medium text-emerald-400">This achievement was earned while I was still in high school.</span>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <a href="https://raw.githubusercontent.com/notyourba3/notyourba3.github.io/main/portofolio/sertifikat-bssn.jpg" target="_blank" 
+                           class="inline-flex items-center gap-x-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                            <span>View Full Certificate</span>
+                            <i class="fa-solid fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <p class="text-xs text-slate-400">This certificate demonstrates early interest in cybersecurity, ethical hacking, and responsible disclosure practices.</p>
+        </div>
+    </section>
+
+    <!-- JOURNEY / EXPERIENCE + EDUCATION -->
+    <section id="journey" class="portfolio-container px-6 py-20 border-b border-slate-800">
+        <div class="max-w-2xl mb-10">
+            <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">05 — MY JOURNEY</div>
+            <h2 class="section-header tracking-tighter">Education &amp; Experience</h2>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-x-8 gap-y-12">
+            
+            <!-- Education -->
+            <div>
+                <div class="flex items-center gap-x-3 mb-6">
+                    <i class="fa-solid fa-graduation-cap text-xl text-indigo-400"></i>
+                    <h3 class="font-semibold text-2xl tracking-tight">Education</h3>
+                </div>
+                
+                <div class="space-y-8 pl-1">
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-indigo-600 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">SMK NU Terate Gresik</div>
+                            <div class="text-sm text-slate-300">Jurusan Teknik Informatika</div>
+                            <div class="text-xs text-slate-400 mt-0.5">2021 — 2024 • Gresik, Jawa Timur</div>
+                            
+                            <div class="mt-3 text-sm text-slate-300">
+                                Focused on software development, computer networks, and IT fundamentals. Built several web projects as part of school assignments and personal learning.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">SMP / MTs (equivalent)</div>
+                            <div class="text-sm text-slate-300">General Education</div>
+                            <div class="text-xs text-slate-400 mt-0.5">2018 — 2021 • Gresik, Jawa Timur</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Experience -->
+            <div>
+                <div class="flex items-center gap-x-3 mb-6">
+                    <i class="fa-solid fa-briefcase text-xl text-indigo-400"></i>
+                    <h3 class="font-semibold text-2xl tracking-tight">Experience &amp; Projects</h3>
+                </div>
+                
+                <div class="space-y-8 pl-1">
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">Computer Technician Intern</div>
+                            <div class="text-sm">Teracom • 2023 — 2024 • Gresik, Jawa Timur</div>
+                            
+                            <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Serviced and repaired laptops &amp; desktop computers (hardware troubleshooting)</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Installed operating systems, drivers, and various software for customers</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Performed printer maintenance and repair</li>
+                                <li class="flex gap-x-2"><span class="mt-1.5 block w-1 h-1 rounded-full bg-slate-400 flex-shrink-0"></span> Handled cashier duties and provided excellent customer service at the computer retail store</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="relative pl-8 timeline-item">
+                        <div class="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-600 ring-4 ring-slate-950"></div>
+                        <div>
+                            <div class="font-semibold">Personal Projects &amp; Self-Learning</div>
+                            <div class="text-sm text-slate-300">2023 — Present</div>
+                            <div class="mt-2 text-sm text-slate-300">Building web projects using HTML, CSS, JavaScript, and modern frameworks. Continuously learning frontend development and UI/UX design through online courses and personal experiments.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-xs text-center text-slate-400">
+            <!-- TODO: Update with your actual school names, dates, GPA if relevant, and real work experience or internships -->
+            <strong>Tip:</strong> Replace the education and experience sections with your actual background for the most accurate and professional portfolio.
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="portfolio-container px-6 py-20">
+        <div class="max-w-xl mx-auto text-center">
+            <div class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400 mb-3">05 — LET'S CONNECT</div>
+            <h2 class="section-header tracking-tighter">Ready to build something<br>great together?</h2>
+            <p class="mt-4 text-lg text-slate-300">I'm currently looking for new opportunities in software development and design. Whether it's a full-time role, internship, or freelance project — I'd love to hear from you.</p>
+            
+            <div class="mt-9">
+                <a href="mailto:gaizkanazaryo@gmail.com" 
+                   class="inline-flex items-center justify-center gap-x-3 text-xl font-semibold bg-white hover:bg-slate-100 active:bg-slate-200 transition-all text-slate-950 px-9 h-[58px] rounded-3xl">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>gaizkanazaryo@gmail.com</span>
+                </a>
+            </div>
+            
+            <div class="mt-8 text-sm text-slate-400">Atau hubungi saya melalui:</div>
+            
+            <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-md mx-auto">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6281913711189" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-whatsapp text-green-400"></i>
+                    <span>WhatsApp</span>
+                </a>
+                
+                <!-- Instagram -->
+                <a href="https://instagram.com/_zvxco" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-instagram text-pink-400"></i>
+                    <span>Instagram</span>
+                </a>
+                
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@xz1co" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+                
+                <!-- Telegram -->
+                <a href="https://t.me/heluva" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-telegram text-blue-400"></i>
+                    <span>Telegram</span>
+                </a>
+                
+                <!-- Discord -->
+                <a href="https://discord.com/users/neveryourbae" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-discord text-indigo-400"></i>
+                    <span>Discord</span>
+                </a>
+                
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1dLoCuo4sJ/" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-facebook text-blue-500"></i>
+                    <span>Facebook</span>
+                </a>
+            </div>
+            
+            <div class="mt-12 text-xs text-slate-400 max-w-xs mx-auto">
+                Feel free to reach out directly via email. I'm always happy to discuss new ideas, collaborations, or opportunities.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950">
+        <div class="portfolio-container px-6 py-8 text-center md:text-left md:flex md:items-center md:justify-between text-xs text-slate-400">
+            <div>© 2026 Gaizka Nazaryo. Crafted with care in Jakarta.</div>
+            <div class="mt-3 md:mt-0">Made to impress recruiters &amp; collaborators.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#6366f1');
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-times text-lg"></i>';
+            } else {
+                menu.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-bars text-lg"></i>';
+            }
+        }
+        
+        // Smooth scroll for anchor links
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        const navHeight = 70;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - navHeight;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            document.getElementById('mobile-menu-btn').innerHTML = '<i class="fa-solid fa-bars text-lg"></i>';
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Keyboard support for mobile menu
+        function setupKeyboardSupport() {
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        document.getElementById('mobile-menu-btn').innerHTML = '<i class="fa-solid fa-bars text-lg"></i>';
+                    }
+                }
+            });
+        }
+
+        // Language Switcher
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                heroTitle: "Hi, I'm<br><span class=\"accent-gradient\">Gaizka Nazaryo</span>",
+                heroSubtitle: "Junior Software Developer & UI/UX Designer crafting clean, delightful digital products.",
+                btnWork: "View My Work",
+                btnContact: "Get in Touch",
+                aboutTitle: "A developer who cares<br>about the details.",
+                aboutBio1: "I'm a fresh graduate from SMK NU Terate Gresik (Teknik Informatika) currently based in Jakarta. I have hands-on experience in both software and hardware — from building responsive websites to troubleshooting computers and installing systems during my internship.",
+                aboutBio2: "I love combining clean code with thoughtful design. My goal is to grow as a web developer while continuing to explore UI/UX and IT support roles. I approach every project with curiosity, attention to detail, and a strong desire to keep learning.",
+                skillsTitle: "Skills & Tools",
+                skillsDesc: "Technologies and design tools I use to bring ideas to life.",
+                projectsTitle: "Featured Projects",
+                certificationsTitle: "Certifications & Achievements",
+                journeyTitle: "Education & Experience",
+                contactTitle: "Ready to build something<br>great together?",
+                contactDesc: "I'm currently looking for new opportunities in software development and design. Whether it's a full-time role, internship, or freelance project — I'd love to hear from you."
+            },
+            id: {
+                heroTitle: "Halo, saya<br><span class=\"accent-gradient\">Gaizka Nazaryo</span>",
+                heroSubtitle: "Junior Software Developer & UI/UX Designer yang membangun produk digital yang bersih dan menyenangkan.",
+                btnWork: "Lihat Karya Saya",
+                btnContact: "Hubungi Saya",
+                aboutTitle: "Seorang developer yang peduli<br>pada detail.",
+                aboutBio1: "Saya adalah lulusan SMK NU Terate Gresik jurusan Teknik Informatika yang saat ini berdomisili di Jakarta. Saya memiliki pengalaman langsung di bidang software maupun hardware — mulai dari membangun website responsif hingga memperbaiki komputer dan menginstal sistem saat magang.",
+                aboutBio2: "Saya senang menggabungkan kode yang bersih dengan desain yang thoughtful. Tujuan saya adalah berkembang sebagai web developer sambil terus mengeksplorasi UI/UX dan peran IT support. Saya mendekati setiap proyek dengan rasa ingin tahu, perhatian terhadap detail, dan keinginan kuat untuk terus belajar.",
+                skillsTitle: "Keahlian & Tools",
+                skillsDesc: "Teknologi dan tools desain yang saya gunakan untuk mewujudkan ide.",
+                projectsTitle: "Proyek Unggulan",
+                certificationsTitle: "Sertifikat & Penghargaan",
+                journeyTitle: "Pendidikan & Pengalaman",
+                contactTitle: "Siap membangun sesuatu<br>yang hebat bersama?",
+                contactDesc: "Saat ini saya sedang mencari peluang baru di bidang pengembangan perangkat lunak dan desain. Baik itu posisi full-time, magang, maupun proyek freelance — saya senang mendengar dari Anda."
+            }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+
+            // Update active button styles
+            document.getElementById('lang-en').classList.toggle('bg-white', lang === 'en');
+            document.getElementById('lang-en').classList.toggle('text-slate-950', lang === 'en');
+            document.getElementById('lang-id').classList.toggle('bg-white', lang === 'id');
+            document.getElementById('lang-id').classList.toggle('text-slate-950', lang === 'id');
+
+            const t = translations[lang];
+
+            // Update Hero
+            const heroTitleEl = document.querySelector('#about').previousElementSibling.querySelector('h1');
+            if (heroTitleEl) heroTitleEl.innerHTML = t.heroTitle;
+
+            const heroSubtitleEl = document.querySelector('#about').previousElementSibling.querySelector('p');
+            if (heroSubtitleEl) heroSubtitleEl.innerHTML = t.heroSubtitle;
+
+            // Update buttons in hero
+            const btns = document.querySelectorAll('#about').previousElementSibling.querySelectorAll('a');
+            if (btns[0]) btns[0].innerHTML = `<span>${t.btnWork}</span><i class="fa-solid fa-arrow-right"></i>`;
+            if (btns[1]) btns[1].innerHTML = `<span>${t.btnContact}</span>`;
+
+            // Update About section
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+                const aboutTitle = aboutSection.querySelector('h2');
+                if (aboutTitle) aboutTitle.innerHTML = t.aboutTitle;
+
+                const aboutBios = aboutSection.querySelectorAll('.prose p');
+                if (aboutBios[0]) aboutBios[0].innerHTML = t.aboutBio1;
+                if (aboutBios[1]) aboutBios[1].innerHTML = t.aboutBio2;
+            }
+
+            // Update Skills
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                const skillsH2 = skillsSection.querySelector('h2');
+                if (skillsH2) skillsH2.innerHTML = t.skillsTitle;
+                const skillsP = skillsSection.querySelector('p');
+                if (skillsP) skillsP.innerHTML = t.skillsDesc;
+            }
+
+            // Update Projects
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                const projectsH2 = projectsSection.querySelector('h2');
+                if (projectsH2) projectsH2.innerHTML = t.projectsTitle;
+            }
+
+            // Update Certifications
+            const certSection = document.getElementById('certifications');
+            if (certSection) {
+                const certH2 = certSection.querySelector('h2');
+                if (certH2) certH2.innerHTML = t.certificationsTitle;
+            }
+
+            // Update Journey
+            const journeySection = document.getElementById('journey');
+            if (journeySection) {
+                const journeyH2 = journeySection.querySelector('h2');
+                if (journeyH2) journeyH2.innerHTML = t.journeyTitle;
+            }
+
+            // Update Contact
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                const contactH2 = contactSection.querySelector('h2');
+                if (contactH2) contactH2.innerHTML = t.contactTitle;
+                const contactP = contactSection.querySelector('p');
+                if (contactP) contactP.innerHTML = t.contactDesc;
+            }
+
+            // Save preference
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        function initLanguage() {
+            const savedLang = localStorage.getItem('preferredLang') || 'en';
+            const browserLang = navigator.language.startsWith('id') ? 'id' : 'en';
+            const initialLang = savedLang || browserLang;
+
+            // Set initial button style
+            if (initialLang === 'id') {
+                document.getElementById('lang-en').classList.remove('bg-white', 'text-slate-950');
+                document.getElementById('lang-id').classList.add('bg-white', 'text-slate-950');
+            }
+
+            // Don't auto-switch on load, let user choose. Default is English.
+            // If you want auto, uncomment: switchLanguage(initialLang);
+        }
+
+        // Theme Toggle (Dark / Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                // Revert to dark colors if needed (current design is optimized for dark)
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                if (icon) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            } else {
+                // Default is dark
+                document.documentElement.classList.add('dark');
+                if (icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            }
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind();
+            setupSmoothScroll();
+            setupKeyboardSupport();
+            initLanguage();
+            initTheme();
+            
+            // Optional: Add subtle animation to project cards on scroll (intersection observer)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.opacity = '0.95';
+                observer.observe(card);
+            });
+            
+            // Easter egg: Click logo to scroll to top
+            const logo = document.querySelector('.fa-solid.fa-code, .w-9.h-9');
+            if (logo) {
+                logo.parentElement.style.cursor = 'pointer';
+                logo.parentElement.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            console.log('%c[Portfolio] Modern portfolio with language switcher initialized.', 'color:#64748b');
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>
