@@ -202,8 +202,8 @@
 
     <!-- HERO -->
     <header class="hero-bg border-b border-slate-800">
-        <div class="portfolio-container px-6 pt-16 pb-20 md:pt-20 md:pb-24">
-            <div class="grid md:grid-cols-12 gap-12 items-center">
+        <div class="portfolio-container px-6 pt-12 pb-16 md:pt-20 md:pb-24">
+            <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
                 
                 <!-- Hero Text -->
                 <div class="md:col-span-7 lg:col-span-7">
@@ -212,7 +212,7 @@
                         <span class="text-emerald-400 text-xs font-semibold tracking-[1px]">OPEN TO OPPORTUNITIES</span>
                     </div>
                     
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tighter font-bold heading-font">
+                    <h1 class="text-[2.75rem] leading-[1.1] md:text-6xl lg:text-7xl tracking-tighter font-bold heading-font">
                         Hi, I'm<br>
                         <span class="accent-gradient">Gaizka Nazaryo</span>
                     </h1>
@@ -718,6 +718,20 @@
                     <span>GitHub</span>
                 </a>
                 
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@xz1co" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-youtube text-red-500"></i>
+                    <span>YouTube</span>
+                </a>
+                
+                <!-- X (Twitter) -->
+                <a href="https://x.com/flaffylatte" target="_blank"
+                   class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <span>X</span>
+                </a>
+                
                 <!-- Facebook -->
                 <a href="https://www.facebook.com/share/1dLoCuo4sJ/" target="_blank"
                    class="flex items-center justify-center gap-x-2 px-4 py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-2xl text-sm transition-colors">
@@ -935,32 +949,37 @@
             const icon = document.getElementById('theme-icon');
             
             if (html.classList.contains('dark')) {
+                // Switch to Light
                 html.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                // Revert to dark colors if needed (current design is optimized for dark)
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        }
-
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const icon = document.getElementById('theme-icon');
-            
-            if (savedTheme === 'light') {
-                document.documentElement.classList.remove('dark');
                 if (icon) {
                     icon.classList.remove('fa-sun');
                     icon.classList.add('fa-moon');
                 }
             } else {
-                // Default is dark
-                document.documentElement.classList.add('dark');
+                // Switch to Dark
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if (icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            }
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const icon = document.getElementById('theme-icon');
+            const html = document.documentElement;
+            
+            if (savedTheme === 'light') {
+                html.classList.remove('dark');
+                if (icon) {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            } else {
+                html.classList.add('dark');
                 if (icon) {
                     icon.classList.remove('fa-moon');
                     icon.classList.add('fa-sun');
